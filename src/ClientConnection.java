@@ -13,7 +13,19 @@ public class ClientConnection implements Runnable
 {
     private Socket s;
     String name = "";
-   // public static String[] stringArray = {"String1","String2","String3"};
+   // public static String[] stringArray = {"0","1"};
+
+ private String[] stringArray = new String[10];
+
+
+    private void populateStringArray()
+    {
+        stringArray[0] = "Cheese";
+        stringArray[1] = "Pepperoni";
+        stringArray[2] = "Black Olives";
+
+
+    }
 
 
     public ClientConnection(Socket s) throws SocketException, IOException
@@ -37,7 +49,6 @@ public class ClientConnection implements Runnable
                 */
                 InputStream input = s.getInputStream();
                 OutputStream output = s.getOutputStream();
-
 
                 /*
                 Til at læse input streamen med bruger vi her en scanner.
@@ -80,33 +91,29 @@ public class ClientConnection implements Runnable
                         out.println(stream);
                     }
 
-
-
                    if(stream.startsWith("NAME:")){
                      name = new String(stream.getBytes()).replace("NAME:", "kurt");
 
-
-
                     }
-                     else{
+
+                    else if (stream.startsWith("PUT:")) {
+                       name = new String(stream.getBytes()).replace("PUT:", "String " + stringArray);
+
+                   }
+
+                   else{
                        name = "Guest";
                    }
                     out.println(name);
+                   out.println(stringArray[1]);
+                   }
 
-                    }
-
-                   //  if(stream.startsWith("PUT:")) {
-                   //      name = new String(stream.getBytes()).replace("PUT:", "" + stringArray);
-                    // }
-               // }
             }
-
 
             finally
             {
                 s.close();
             }
-
 
         }
         catch(Exception e)
