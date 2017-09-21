@@ -12,8 +12,8 @@ import java.io.PrintWriter;
 public class ClientConnection implements Runnable
 {
     private Socket s;
-    String name = "Guest";
-    public static String[] stringArray = {"String1","String2","String3"};
+    String name = "";
+   // public static String[] stringArray = {"String1","String2","String3"};
 
 
     public ClientConnection(Socket s) throws SocketException, IOException
@@ -37,6 +37,7 @@ public class ClientConnection implements Runnable
                 */
                 InputStream input = s.getInputStream();
                 OutputStream output = s.getOutputStream();
+
 
                 /*
                 Til at læse input streamen med bruger vi her en scanner.
@@ -82,13 +83,22 @@ public class ClientConnection implements Runnable
 
 
                    if(stream.startsWith("NAME:")){
-                     name = new String(stream.getBytes()).replace("NAME:", "");
+                     name = new String(stream.getBytes()).replace("NAME:", "kurt");
+
+
 
                     }
-                     if(stream.startsWith("PUT:")) {
-                         name = new String(stream.getBytes()).replace("PUT:", "" + stringArray);
-                     }
-                }
+                     else{
+                       name = "Guest";
+                   }
+                    out.println(name);
+
+                    }
+
+                   //  if(stream.startsWith("PUT:")) {
+                   //      name = new String(stream.getBytes()).replace("PUT:", "" + stringArray);
+                    // }
+               // }
             }
 
 
