@@ -95,9 +95,9 @@ public class ClientConnection implements Runnable
                      name = new String(stream.getBytes()).replace("NAME:", "kurt");
 
                     }
-
+//  jeg skal huske og ændre PUT coden fordi den ikke skal ændre name den skal blot sætte string ind på arrayet
                     else if (stream.startsWith("PUT:")) {
-                       name = new String(stream.getBytes()).replace("PUT:", "String " + stringArray);
+
 
                    }
 
@@ -105,7 +105,7 @@ public class ClientConnection implements Runnable
                        name = "Guest";
                    }
                     out.println(name);
-                   out.println(stringArray[1]);
+                   out.println(stringArray[1].toString());
                    }
 
             }
