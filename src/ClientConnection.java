@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Stream;
 import java.io.PrintWriter;
@@ -13,20 +14,21 @@ public class ClientConnection implements Runnable
 {
     private Socket s;
     String name = "";
-   // public static String[] stringArray = {"0","1"};
-
- private String[] stringArray = new String[10];
+    public  static ArrayList array = new ArrayList();
 
 
-    private void populateStringArray()
+    // public static String[] stringArray = {"0","1"};
+
+    //private String[] stringArray = new String[10];
+
+
+   /* private void populateStringArray()
     {
         stringArray[0] = "Cheese";
         stringArray[1] = "Pepperoni";
         stringArray[2] = "Black Olives";
-
-
     }
-
+*/
 
     public ClientConnection(Socket s) throws SocketException, IOException
     {
@@ -36,6 +38,7 @@ public class ClientConnection implements Runnable
     @Override
     public void run()
     {
+        array.add(" test name ");
         try
         {
             try
@@ -91,22 +94,22 @@ public class ClientConnection implements Runnable
                         out.println(stream);
                     }
 
-                   if(stream.startsWith("NAME:")){
-                     name = new String(stream.getBytes()).replace("NAME:", "kurt");
+                    if(stream.startsWith("NAME:")){
+                        name = new String(stream.getBytes()).replace("NAME:", "kurt");
 
                     }
 //  jeg skal huske og ændre PUT coden fordi den ikke skal ændre name den skal blot sætte string ind på arrayet
                     else if (stream.startsWith("PUT:")) {
+                        array.add(name + " ");
 
+                    }
 
-                   }
-
-                   else{
-                       name = "Guest";
-                   }
+                    else{
+                        name = "Guest";
+                    }
                     out.println(name);
-                   out.println(stringArray[1].toString());
-                   }
+                    out.print(array);
+                }
 
             }
 
