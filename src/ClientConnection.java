@@ -17,18 +17,7 @@ public class ClientConnection implements Runnable
     public  static ArrayList array = new ArrayList();
 
 
-    // public static String[] stringArray = {"0","1"};
 
-    //private String[] stringArray = new String[10];
-
-
-   /* private void populateStringArray()
-    {
-        stringArray[0] = "Cheese";
-        stringArray[1] = "Pepperoni";
-        stringArray[2] = "Black Olives";
-    }
-*/
 
     public ClientConnection(Socket s) throws SocketException, IOException
     {
@@ -38,7 +27,9 @@ public class ClientConnection implements Runnable
     @Override
     public void run()
     {
-        array.add(" test name ");
+        array.add(" test name 1 ");
+        array.add(" test name 2 ");
+        array.add(" test name 3 ");
         try
         {
             try
