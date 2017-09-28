@@ -10,30 +10,20 @@ import java.io.PrintWriter;
  * Kapitel # - Netværk - Multitråds Server - ClientConnection.java
  * @author Sonny Sandberg
  */
-public class ClientConnection implements Runnable
-{
+public class ClientConnection implements Runnable {
     private Socket s;
-    String name = "";
-    public  static ArrayList array = new ArrayList();
+    String name = " ";
 
 
-
-
-    public ClientConnection(Socket s) throws SocketException, IOException
-    {
+    public ClientConnection(Socket s) throws SocketException, IOException {
         this.s = s;
     }
 
     @Override
-    public void run()
-    {
-        array.add(" test name 1 ");
-        array.add(" test name 2 ");
-        array.add(" test name 3 ");
-        try
-        {
-            try
-            {
+    public void run() {
+
+        try {
+            try {
                 /*
                 Vi har behov for at kommunikere med serveren. Vi opretter derfor
                 en input og en output stream, og binder hver isæt til Socket'ens
@@ -67,54 +57,36 @@ public class ClientConnection implements Runnable
                 Vi ønsker kun at lukke forbindelse, når brugeren skriver "luk ned"
                 */
                 boolean done = false;
-                while (!done && in.hasNextLine())
-                {
+                while (!done && in.hasNextLine()) {
                     /*
                     Her starter scannerens arbejde. Hvis der ikke er nogle
                     linier, afventer den til der kommer en.
                     */
 
                     String stream = in.nextLine();
-                    if (stream.equals("luk ned"))
-                    {
+                    if (stream.equals("luk ned")) {
                         done = true;
-                    }
-                    else
-                    {
+                    } else {
                         // Når vi skriver, sender vi en linie med PrintWriter
                         out.println(stream);
                     }
 
-                    if(stream.startsWith("NAME:")){
-                        name = new String(stream.getBytes()).replace("NAME:", "kurt");
-
-                    }
-//  jeg skal huske og ændre PUT coden fordi den ikke skal ændre name den skal blot sætte string ind på arrayet
-                    else if (stream.startsWith("PUT:")) {
-                        array.add(name + " ");
-
-                    }
-
-                    else{
-                        name = "Guest";
-                    }
-                    out.println(name);
-                    out.print(array);
                 }
 
-            }
 
-            finally
-            {
-                s.close();
-            }
+                {
+                    s.close();
+                }
 
-        }
-        catch(Exception e)
-        {
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
-
-
 }
+
+
+
+
