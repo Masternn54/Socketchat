@@ -17,9 +17,13 @@ import java.util.Scanner;
  * @author Sonny Sandberg
  */
 public class Server {
+
+
+
     public static void main(String[] args) {
         ArrayList array = new ArrayList();
-
+        String name = "Guest";
+        String besked = "";
 
         // ServerSocket oprettes og port 8001 angives som den der skal lyttes på
         ServerSocket ss;
@@ -28,9 +32,10 @@ public class Server {
 
             System.out.println("Server kører...");
 
-            array.add(" test name 1 ");
+            /*array.add(" test name 1 ");
             array.add(" test name 2 ");
             array.add(" test name 3 ");
+            */
             while (true) {
                 // Så længe der ikke er oprettet en forbindelse, venter serveren her
                 // Så snart der anmodes om en forbindelse accepteres den med accept()
@@ -47,9 +52,52 @@ public class Server {
 
                 out.println(" velkommen");
 
+
+                boolean done = false;
+                while (!done && in.hasNextLine()) {
+                    /*
+                    Her starter scannerens arbejde. Hvis der ikke er nogle
+                    linier, afventer den til der kommer en.
+                    */
+                    String stream = in.nextLine();
+                    if (stream.equals("luk ned")) {
+                        done = true;
+                    } else {
+                        // Når vi skriver, sender vi en linie med PrintWriter
+                         out.println(stream); // svar til clienten
+                        System.out.println("Modtog besked " + beskedFortolker(stream));
+                        if (beskedFortolker(stream)=="NAME"){
+                            name = new String(stream.getBytes()).replace("NAME:", "");
+                            System.out.println("Navn er ændret til " + name);
+                        }
+                        if (beskedFortolker(stream)=="PUT"){
+                            besked =  new String(stream.getBytes()).replace("PUT: ", "");
+                            String beskedDerGemmes = name + " - " + besked;
+                            array.add(beskedDerGemmes);
+                            System.out.println(array.get(0) + " er tilføjet til arrayet. ");
+                        }
+                        if (beskedFortolker(stream)== "COUNT") {
+                            int count = array.size();
+                            out.println("Antal linjer i chatten er " + count);
+                        }
+                        /*if (beskedFortolker(stream)== "GET") {
+                            int x = 1;
+                            besked = array.get(x).toString();
+                            out.println(x + ". element i arrayet er:  " + besked);
+                        }*/
+
+                    }
+                }
+
+                incoming.close();
+                System.out.println("Forbindelsen til klienten blev lukket.");
+
+/*
                 String besked = in.nextLine();
 
                 System.out.println("modtog besked " + besked);
+
+
                 String name = besked.substring(4);
 
 
@@ -77,13 +125,13 @@ public class Server {
                     name = "Guest";
                 }
                 out.println(name);
-                out.print(array);
+                //out.print(array);
 
+*/
 
-
-                Runnable r = new ClientConnection(incoming);
+               /* Runnable r = new ClientConnection(incoming);
                 Thread t = new Thread(r);
-                t.start();
+                t.start();*/
             }
 
                 /*
@@ -97,6 +145,23 @@ public class Server {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static String beskedFortolker(String besked){
+        String beskedType = "ERROR";
+        if(besked.startsWith("NAME:")){
+           beskedType = "NAME";
+        }
+        if(besked.startsWith("PUT:")){
+            beskedType = "PUT";
+        }
+        if(besked.startsWith("COUNT")){
+            beskedType = "COUNT";
+        }
+        if(besked.startsWith("GET:")){
+            beskedType = "GET";
+        }
+        return beskedType;
     }
 }
 

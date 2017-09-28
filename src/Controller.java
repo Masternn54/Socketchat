@@ -54,8 +54,8 @@ public class Controller {
 
             }
         }
-            @FXML
-         public void aCount(){
+       //     @FXML
+      /*  public void aCount(){
         try {
 
             int count =
@@ -67,8 +67,8 @@ public class Controller {
 
         }catch (Exception ex){
             ex.printStackTrace();
-        }
-            }
+      *///  }
+    //        }
     }
 
 

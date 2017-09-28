@@ -24,12 +24,15 @@ public class Client {
                 System.out.println(welcome);
 
                 out.println("Første besked Dude");
+                System.out.println("først svar fra severen " + in.nextLine());
+
+
+                OutputStream output2 = s.getOutputStream();
+                PrintWriter out2 = new PrintWriter(output2,true);
+                out2.println("Anden besked er kommet!!!");
                 System.out.println(in.nextLine());
 
-                out.println("Anden besked er kommet");
-                System.out.println(in.nextLine());
-
-                out.println("Tredje Linje det virker min ven");
+                out2.println("Tredje Linje det virker min ven");
                 System.out.println(in.nextLine());
 
 
