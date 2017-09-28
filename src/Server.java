@@ -17,7 +17,7 @@ import java.util.Scanner;
  */
 public class Server
 {
-    public static ArrayList main(String[] args)
+    public static void main(String[] args)
     {
         ArrayList array = new ArrayList();
 
@@ -96,7 +96,7 @@ public class Server
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return array;
+
     }
 
         {
