@@ -37,7 +37,7 @@ public class Controller {
     public void send() {
         try {
             String message = text.getText();
-            message = "PUT: " + message;
+            message = "" + message;
             chatWindow.appendText("\n"+message );
 
             Socket s = new Socket("127.0.0.1",8001);

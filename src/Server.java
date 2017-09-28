@@ -17,12 +17,9 @@ import java.util.Scanner;
  */
 public class Server
 {
-    public static void main(String[] args)
+    public static ArrayList main(String[] args)
     {
         ArrayList array = new ArrayList();
-
-
-
 
 
         // ServerSocket oprettes og port 8001 angives som den der skal lyttes på
@@ -65,11 +62,16 @@ public class Server
                 }
 
                 else if(besked.startsWith("NAME:")){
-                name = new String(besked.getBytes()).replace("NAME:", "kurt");
+                name = new String(besked.getBytes()).replace("NAME:", "");
 
             }
 
+            else if (besked.startsWith("COUNT:")){
+                    out.println(array.size());
+                }
+
                 else{
+
                     name = "Guest";
                 }
                 out.println(name);
@@ -94,6 +96,7 @@ public class Server
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return array;
     }
 
         {
