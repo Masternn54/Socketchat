@@ -13,19 +13,17 @@ import java.util.Scanner;
 /**
  * Bog: Avanceret Java
  * Kapitel # - Netværk - Multitråds Server - Server.java
+ *
  * @author Sonny Sandberg
  */
-public class Server
-{
-    public static void main(String[] args)
-    {
+public class Server {
+    public static void main(String[] args) {
         ArrayList array = new ArrayList();
 
 
         // ServerSocket oprettes og port 8001 angives som den der skal lyttes på
         ServerSocket ss;
-        try
-        {
+        try {
             ss = new ServerSocket(8001);
 
             System.out.println("Server kører...");
@@ -33,8 +31,7 @@ public class Server
             array.add(" test name 1 ");
             array.add(" test name 2 ");
             array.add(" test name 3 ");
-            while(true)
-            {
+            while (true) {
                 // Så længe der ikke er oprettet en forbindelse, venter serveren her
                 // Så snart der anmodes om en forbindelse accepteres den med accept()
 
@@ -46,14 +43,15 @@ public class Server
 
                 Scanner in = new Scanner(input);
 
-                PrintWriter out = new PrintWriter(output,true);
+                PrintWriter out = new PrintWriter(output, true);
 
                 out.println(" velkommen");
 
                 String besked = in.nextLine();
 
                 System.out.println("modtog besked " + besked);
-              String name = besked.substring(4);
+                String name = besked.substring(4);
+
 
 
                 if (besked.startsWith("PUT:")) {
@@ -62,12 +60,16 @@ public class Server
                 }
 
                 else if(besked.startsWith("NAME:")){
-                name = new String(besked.getBytes()).replace("NAME:", "");
+                    name = new String(besked.getBytes()).replace("NAME:", "");
 
-            }
+                }
 
-            else if (besked.startsWith("COUNT:")){
+                else if (besked.startsWith("COUNT:")){
                     out.println(array.size());
+                }
+
+                else if (besked.startsWith("GET:x")){
+
                 }
 
                 else{
@@ -76,6 +78,8 @@ public class Server
                 }
                 out.println(name);
                 out.print(array);
+
+
 
                 Runnable r = new ClientConnection(incoming);
                 Thread t = new Thread(r);
@@ -90,17 +94,9 @@ public class Server
                 */
 
 
-
-            } catch (SocketException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
-        {
-
-        }
-    }
+}
 

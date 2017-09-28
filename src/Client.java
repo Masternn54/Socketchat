@@ -14,7 +14,7 @@ public class Client {
             while (true){
                 InputStream input = s.getInputStream();
                 OutputStream output = s.getOutputStream();
-
+                 Scanner humaninput = new Scanner(System.in);
 
                 Scanner in = new Scanner(input);
 
@@ -32,6 +32,18 @@ public class Client {
                 out.println("Tredje Linje det virker min ven");
                 System.out.println(in.nextLine());
 
+
+
+                boolean running = true;
+                while (running){
+
+                    String xHuman = humaninput.nextLine();
+
+
+
+                    out.println(xHuman);
+                  System.out.println(humaninput.nextLine());
+                }
 
                 s.close();
                 System.out.println("Forbindelsen er lukket Peace out");

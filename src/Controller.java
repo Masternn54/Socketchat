@@ -18,7 +18,8 @@ public class Controller {
     public TextArea chatWindow;
     @FXML
     public TextField text;
-
+    @FXML
+    public Button count;
 
 
     public Socket s;
@@ -49,7 +50,25 @@ public class Controller {
         } catch (Exception ex){
             ex.printStackTrace();
 
+
+
+            }
         }
+            @FXML
+         public void aCount(){
+        try {
+
+            int count =
+            Socket s = new Socket("127.0.0.1",8001);
+            InputStream input = s.getInputStream();
+            OutputStream output = s.getOutputStream();
+            PrintWriter out = new PrintWriter(output,true);
+            out.println(message);
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+            }
     }
-}
+
 
